@@ -1,0 +1,91 @@
+/* Custom Cursor Styling */
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  mix-blend-mode: normal;
+  will-change: transform, width, height, background-color;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #78E08F;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px rgba(120, 224, 143, 0.8);
+  transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.cursor-ring {
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(120, 224, 143, 0.4);
+  background: rgba(120, 224, 143, 0.03);
+  backdrop-filter: blur(2px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+              height 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.3s ease, 
+              background-color 0.3s ease, 
+              border-radius 0.3s ease;
+}
+
+.cursor-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #070807;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  white-space: nowrap;
+}
+
+/* Hover States */
+.cursor--active .cursor-ring {
+  width: 76px;
+  height: 76px;
+  background: #78E08F;
+  border-color: #78E08F;
+  box-shadow: 0 0 25px rgba(120, 224, 143, 0.35);
+}
+
+.cursor--active .cursor-dot {
+  opacity: 0;
+}
+
+.cursor--active .cursor-label {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.cursor--hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Touch & Mobile Cursor Disabling */
+@media (hover: none) and (pointer: coarse) {
+  .custom-cursor {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .custom-cursor {
+    display: none !important;
+  }
+}
