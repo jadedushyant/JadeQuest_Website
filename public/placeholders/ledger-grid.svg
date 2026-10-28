@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000">
+  <rect width="1600" height="1000" fill="#18211C"/>
+  <g stroke="#344239" stroke-width="1">
+    <path d="M0 125H1600M0 250H1600M0 375H1600M0 500H1600M0 625H1600M0 750H1600M0 875H1600"/>
+    <path d="M200 0V1000M400 0V1000M600 0V1000M800 0V1000M1000 0V1000M1200 0V1000M1400 0V1000"/>
+  </g>
+  <g fill="none" stroke="#829187" stroke-width="2">
+    <rect x="240" y="420" width="160" height="110" rx="6"/>
+    <rect x="560" y="300" width="160" height="110" rx="6"/>
+    <rect x="560" y="540" width="160" height="110" rx="6"/>
+    <rect x="880" y="420" width="160" height="110" rx="6"/>
+    <path d="M400 475H480V355H560M480 475V595H560M720 355H800V475H880M720 595H800V475"/>
+  </g>
+  <rect x="1200" y="420" width="160" height="110" rx="6" fill="#19B58A"/>
+  <path d="M1040 475H1200" stroke="#19B58A" stroke-width="2" stroke-dasharray="6 6"/>
+  <text x="1280" y="482" fill="#101815" font-family="monospace" font-size="20" text-anchor="middle">VERIFIED</text>
+  <text x="240" y="400" fill="#829187" font-family="monospace" font-size="16">fig. 1 · merkle anchoring (placeholder)</text>
+</svg>

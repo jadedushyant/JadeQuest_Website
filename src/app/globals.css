@@ -1,0 +1,237 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/* Design tokens: "Jade Ledger", forest + paper edition                */
+/* Ratio guide: ~55% forest, ~25% paper/stone, ~15% neutrals, ~5% jade */
+/* ------------------------------------------------------------------ */
+@theme {
+  /* Brand */
+  --color-jade: #19b58a;
+  --color-jade-deep: #077052;
+  --color-jade-soft: #b4e8d4;
+
+  /* Dark (forest) */
+  --color-forest: #101815;
+  --color-surface: #18211c;
+  --color-surface-raised: #202c25;
+  --color-line: #344239;
+  --color-mist: #b1bbb2;
+  --color-subtle: #829187;
+
+  /* Light (editorial) */
+  --color-paper: #f3f2ea;
+  --color-stone: #e9e8de;
+  --color-ink: #202822;
+  --color-ink-muted: #59635d;
+
+  /* Fonts (CSS vars are set by next/font in layout.tsx) */
+  --font-display: var(--font-syne), Georgia, sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  /* Type scale: large sizes are reserved for the hero and a few statements */
+  --text-hero: clamp(2.5rem, 8vw, 8rem);
+  --text-hero--line-height: 0.95;
+  --text-hero--letter-spacing: -0.035em;
+  --text-display: clamp(2.25rem, 4.5vw, 4.5rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.025em;
+  --text-h1: clamp(2rem, 3.6vw, 3.5rem);
+  --text-h1--line-height: 1.05;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h2: clamp(1.625rem, 2.6vw, 2.5rem);
+  --text-h2--line-height: 1.12;
+  --text-h2--letter-spacing: -0.015em;
+  --text-h3: clamp(1.25rem, 1.8vw, 1.625rem);
+  --text-h3--line-height: 1.2;
+  --text-h4: 1.125rem;
+  --text-h4--line-height: 1.35;
+  --text-lead: clamp(1.0625rem, 1.25vw, 1.25rem);
+  --text-lead--line-height: 1.6;
+
+  /* Shape */
+  --radius-button: 8px;
+  --radius-card: 14px;
+  --radius-tag: 4px;
+
+  /* Motion */
+  --ease-jade: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Z-index layers & layout constants */
+:root {
+  --z-cursor: 9999;
+  --z-preloader: 9000;
+  --z-transition: 8500;
+  --z-header: 7000;
+  /* Below the header so the logo and close button stay on top of the open menu */
+  --z-menu: 6500;
+  --gutter: clamp(1rem, 3vw, 2.5rem);
+  --container-max: 1440px;
+  --section-space: clamp(80px, 10vw, 160px);
+  --header-h: 5rem;
+  --duration-fast: 250ms;
+  --duration-normal: 500ms;
+  color-scheme: dark;
+}
+
+@utility z-cursor { z-index: var(--z-cursor); }
+@utility z-preloader { z-index: var(--z-preloader); }
+@utility z-menu { z-index: var(--z-menu); }
+@utility z-header { z-index: var(--z-header); }
+@utility z-transition { z-index: var(--z-transition); }
+@utility px-gutter {
+  padding-inline: var(--gutter);
+}
+@utility py-section {
+  padding-block: var(--section-space);
+}
+
+/* Text link: an underline draws in from the left on hover and retracts to the
+   right on leave. Set --link-rest (e.g. 30%) to also show a faint resting line. */
+@utility link-draw {
+  padding-bottom: 3px;
+  background-image:
+    linear-gradient(currentColor, currentColor),
+    linear-gradient(
+      color-mix(in srgb, currentColor var(--link-rest, 0%), transparent),
+      color-mix(in srgb, currentColor var(--link-rest, 0%), transparent)
+    );
+  background-repeat: no-repeat;
+  background-position:
+    100% 100%,
+    0 100%;
+  background-size:
+    0% 1px,
+    100% 1px;
+  transition: background-size 0.45s var(--ease-expo-out);
+  &:hover,
+  &:focus-visible {
+    background-position:
+      0 100%,
+      0 100%;
+    background-size:
+      100% 1px,
+      100% 1px;
+  }
+}
+
+/* Film grain for selected backgrounds. Use sparingly. */
+@utility grain {
+  position: relative;
+  isolation: isolate;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.07;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* No CSS smooth scrolling: Lenis handles it in Phase 2 */
+  }
+
+  body {
+    background: var(--color-forest);
+    color: var(--color-paper);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--color-jade);
+    color: var(--color-forest);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent, var(--color-jade));
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  /* Scroll cue in the hero: a short line that travels down its track */
+  @keyframes scroll-cue {
+    0% { transform: translateY(-100%); }
+    60%, 100% { transform: translateY(200%); }
+  }
+
+  /* Section themes: components read these variables instead of fixed colors */
+  [data-theme="dark"] {
+    --bg: var(--color-forest);
+    --fg: var(--color-paper);
+    --fg-muted: var(--color-mist);
+    --fg-subtle: var(--color-subtle);
+    --line: var(--color-line);
+    --card: var(--color-surface);
+    --accent: var(--color-jade);
+    --on-accent: var(--color-forest);
+    --accent-hover: var(--color-jade-soft);
+    background: var(--bg);
+    color: var(--fg);
+  }
+
+  [data-theme="light"],
+  [data-theme="stone"] {
+    --bg: var(--color-paper);
+    --fg: var(--color-ink);
+    --fg-muted: var(--color-ink-muted);
+    --fg-subtle: var(--color-ink-muted);
+    --line: rgb(32 40 34 / 0.16);
+    --card: #ffffff;
+    --accent: var(--color-jade-deep);
+    --on-accent: var(--color-paper);
+    --accent-hover: var(--color-ink);
+    background: var(--bg);
+    color: var(--fg);
+    color-scheme: light;
+  }
+
+  [data-theme="stone"] {
+    --bg: var(--color-stone);
+  }
+
+  /* Preloader: never without JS, and not on repeat visits (see boot script) */
+  html:not(.js) [data-preloader],
+  .skip-preloader [data-preloader] {
+    display: none;
+  }
+
+  /* Reveal targets start hidden only when JS is running; GSAP shows them. */
+  .js [data-reveal] {
+    visibility: hidden;
+  }
+
+  /* Custom cursor replaces the pointer, except where a text caret is needed */
+  .has-custom-cursor,
+  .has-custom-cursor * {
+    cursor: none !important;
+  }
+  .has-custom-cursor :is(input:not([type="checkbox"], [type="radio"], [type="submit"], [type="button"]), textarea, [contenteditable="true"]) {
+    cursor: text !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

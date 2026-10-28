@@ -1,21 +1,25 @@
-import { useState, useEffect } from 'react';
+"use client";
 
-export function useMediaQuery(query: string): boolean {
-  const [matches, setMatches] = useState<boolean>(() => {
-    if (typeof window === 'undefined') return false;
-    return window.matchMedia(query).matches;
-  });
+import { useSyncExternalStore } from "react";
+import { MEDIA } from "@/lib/motion/constants";
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const mediaQuery = window.matchMedia(query);
-    const handler = (event: MediaQueryListEvent) => setMatches(event.matches);
+/** Server render and first paint return `serverValue`, then the real match. */
+export function useMediaQuery(query: string, serverValue = false) {
+  return useSyncExternalStore(
+    (onChange) => {
+      const mql = window.matchMedia(query);
+      mql.addEventListener("change", onChange);
+      return () => mql.removeEventListener("change", onChange);
+    },
+    () => window.matchMedia(query).matches,
+    () => serverValue,
+  );
+}
 
-    mediaQuery.addEventListener('change', handler);
-    setMatches(mediaQuery.matches);
+export const useReducedMotion = () => useMediaQuery(MEDIA.reducedMotion);
+export const useFinePointer = () => useMediaQuery(MEDIA.finePointer);
 
-    return () => mediaQuery.removeEventListener('change', handler);
-  }, [query]);
-
-  return matches;
+/** Non-hook check for use inside effects and GSAP callbacks. */
+export function prefersReducedMotion() {
+  return typeof window !== "undefined" && window.matchMedia(MEDIA.reducedMotion).matches;
 }

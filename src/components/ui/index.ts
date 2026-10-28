@@ -1,8 +1,8 @@
-export * from './Button';
-export * from './Container';
-export * from './SectionTitle';
-export * from './Logo';
-export * from './Preloader';
-export * from './SoundToggle';
-export * from './GridBackground';
-export * from './NoiseOverlay';
+export { Container } from "./Container";
+export { Section } from "./Section";
+export { Heading } from "./Heading";
+export { Eyebrow } from "./Eyebrow";
+export { Button, ArrowIcon } from "./Button";
+export { Tag } from "./Tag";
+export { Divider } from "./Divider";
+export { Card } from "./Card";

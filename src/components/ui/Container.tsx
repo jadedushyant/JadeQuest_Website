@@ -1,33 +1,23 @@
-import React from 'react';
-import { cn } from '../../lib/utils';
+import type { ComponentPropsWithoutRef, ElementType } from "react";
+import { cn } from "@/lib/cn";
 
-interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
-  size?: 'sm' | 'md' | 'lg' | 'full';
-}
+type ContainerProps<T extends ElementType> = {
+  as?: T;
+  size?: "default" | "wide" | "narrow";
+} & ComponentPropsWithoutRef<T>;
 
-export const Container: React.FC<ContainerProps> = ({
-  children,
-  className,
-  size = 'lg',
-  ...props
-}) => {
-  const sizeClasses = {
-    sm: 'max-w-4xl',
-    md: 'max-w-6xl',
-    lg: 'max-w-7xl',
-    full: 'max-w-[100vw]',
-  };
-
-  return (
-    <div
-      className={cn(
-        'w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-12',
-        sizeClasses[size],
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </div>
-  );
+const sizes = {
+  narrow: "max-w-[960px]",
+  default: "max-w-[var(--container-max)]",
+  wide: "max-w-[1920px]",
 };
+
+export function Container<T extends ElementType = "div">({
+  as,
+  size = "default",
+  className,
+  ...props
+}: ContainerProps<T>) {
+  const Tag = as ?? "div";
+  return <Tag className={cn("mx-auto w-full px-gutter", sizes[size], className)} {...props} />;
+}
