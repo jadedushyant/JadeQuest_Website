@@ -54,6 +54,11 @@ export type CaseStudy = {
   tech: string[];
   industries: IndustrySlug[];
   products: string[];
+  category?: string;
+  problem?: string;
+  solution?: string;
+  implementation?: string[];
+  outcomes?: string[];
 };
 
 export type Solution = {

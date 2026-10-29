@@ -2,6 +2,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import { Footer, Header, PageTransitionProvider, Preloader, ScrollProgress } from "@/components/layout";
+import { CookieConsent } from "@/components/ui/CookieConsent";
 import { Cursor, SmoothScrollProvider } from "@/components/motion";
 import { company } from "@/content";
 import { inter, jetbrains, syne } from "@/lib/fonts";
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#101815",
+  themeColor: "#111318",
 };
 
 // Runs before first paint: marks JS as available (reveal targets start hidden)
@@ -63,6 +64,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </PageTransitionProvider>
         </SmoothScrollProvider>
         <Cursor />
+        <CookieConsent />
         {/* Cookieless analytics; only on Vercel, where the endpoints exist */}
         {process.env.VERCEL && (
           <>

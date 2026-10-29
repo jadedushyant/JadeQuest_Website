@@ -1,28 +1,30 @@
 import type { Metadata } from "next";
-import { EmptyListing } from "@/components/pages/EmptyListing";
 import { PageHero } from "@/components/pages/PageHero";
+import { Container, Section } from "@/components/ui";
+import { ArticlesListing } from "./ArticlesListing";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = pageMeta({
-  title: "Blog",
-  description: "Notes from JadeQuest's engineers on permissioned ledgers, applied AI and enterprise software.",
+  title: "Insights & Technical Perspectives",
+  description:
+    "Engineering insights, architectural blueprints, and deep dives from JadeQuest's distributed systems and applied AI teams.",
   path: "/blog",
 });
 
-// TODO(content): add MDX posts (src/content/posts) and list them here.
 export default function BlogPage() {
   return (
     <>
       <PageHero
-        eyebrow="Blog"
-        title="Notes from the engineering team"
-        size="h1"
-        crumbs={[{ label: "Home", href: "/" }, { label: "Blog" }]}
+        eyebrow="Insights & Research"
+        title="Technical blueprints from our engineering squads"
+        intro="In-depth explorations of permissioned distributed ledger topologies, private language model deployments, zero-downtime microservices, and cryptographic proof verification."
+        crumbs={[{ label: "Home", href: "/" }, { label: "Insights" }]}
       />
-      <EmptyListing
-        message="We're moving our articles to the new site. In the meantime, the case studies cover what we've built."
-        cta={{ label: "Read the case studies", href: "/case-studies" }}
-      />
+      <Section theme="dark">
+        <Container>
+          <ArticlesListing />
+        </Container>
+      </Section>
     </>
   );
 }

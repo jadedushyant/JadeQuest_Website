@@ -6,26 +6,32 @@
 /* ------------------------------------------------------------------ */
 @theme {
   /* Brand */
-  --color-jade: #19b58a;
-  --color-jade-deep: #077052;
-  --color-jade-soft: #b4e8d4;
+  --color-purple: #8b5cf6;
+  --color-cyan: #22d3ee;
+  --color-jade: #22d3ee;
+  --color-jade-deep: #0ea5e9;
+  --color-jade-soft: #a5f3fc;
 
   /* Dark (forest) */
-  --color-forest: #101815;
-  --color-surface: #18211c;
-  --color-surface-raised: #202c25;
-  --color-line: #344239;
-  --color-mist: #b1bbb2;
-  --color-subtle: #829187;
+  --color-bg-main: #111318;
+  --color-bg-secondary: #151821;
+  --color-card-surface: #1a1d25;
+  --color-elevated-surface: #222633;
+  --color-forest: #111318;
+  --color-surface: #1a1d25;
+  --color-surface-raised: #222633;
+  --color-line: rgba(255, 255, 255, 0.10);
+  --color-mist: #a5adba;
+  --color-subtle: #717d91;
 
   /* Light (editorial) */
-  --color-paper: #f3f2ea;
-  --color-stone: #e9e8de;
+  --color-paper: #f5f7fa;
+  --color-stone: #151821;
   --color-ink: #202822;
   --color-ink-muted: #59635d;
 
   /* Fonts (CSS vars are set by next/font in layout.tsx) */
-  --font-display: var(--font-syne), Georgia, sans-serif;
+  --font-display: var(--font-inter), system-ui, sans-serif;
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 
@@ -153,8 +159,8 @@
   }
 
   ::selection {
-    background: var(--color-jade);
-    color: var(--color-forest);
+    background: #8b5cf6;
+    color: #ffffff;
   }
 
   :focus-visible {

@@ -19,6 +19,7 @@ export const mainNav: NavLink[] = [
     href: "/industries",
     children: industries.map((i) => ({ label: i.name, href: `/industries/${i.slug}` })),
   },
+  { label: "Technology", href: "/technology" },
   { label: "Work", href: "/case-studies" },
   {
     label: "About",
